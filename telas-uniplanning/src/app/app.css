@@ -1,3 +1,48 @@
 .example-spacer {
   flex: 1 1 auto;
 }
+.fundo {
+  background-color:#004AAD;
+  height:100px;
+}
+.primeiro-t {
+  color:white;
+  text-align:center;
+}
+
+.segundo-t {
+  color:#FF914D;
+}
+
+.icone-branco {
+  color:white;
+}
+
+.titulo{
+  padding-left:25px;
+  
+}
+
+img {
+  width:50px;
+  padding-left:27px;
+
+}
+
+.container {
+  height: 100vh;
+}
+
+.sidenav {
+  width: 240px;
+}
+
+mat-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.content {
+  padding: 16px;
+}
