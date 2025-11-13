@@ -2,9 +2,9 @@
   <!-- MENU LATERAL -->
   <mat-sidenav #drawer mode="over" class="sidenav" (click)="drawer.close()">
     <mat-nav-list>
-      <a mat-list-item href="#">Página 1</a>
-      <a mat-list-item href="#">Página 2</a>
-      <a mat-list-item href="#">Página 3</a>
+      <a mat-list-item href="#">Início</a>
+      <a mat-list-item href="professor/cadastrar-professor/">Cadastro professor</a>
+      <a mat-list-item href="materia/cadastrar-materia/">Cadastro Matéria</a>
     </mat-nav-list>
   </mat-sidenav>
 
@@ -15,7 +15,7 @@
         <mat-icon class="icone-branco">menu</mat-icon>
       </button>
       <span class="titulo">
-        <img src="imagens/Screenshot-removebg-preview.png">
+        <img [src]="img1" class="img">
       </span>
       <span class="example-spacer"></span>
       <button mat-icon-button aria-label="Perfil do usuário">
