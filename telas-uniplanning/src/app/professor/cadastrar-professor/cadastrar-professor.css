@@ -1,0 +1,61 @@
+.container {
+  width: 850px;
+  margin: 40px auto;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+.titulo {
+  font-size: 28px;
+  font-weight: 700;
+  color: #003c8f;
+}
+
+.subtitulo {
+  margin-bottom: 25px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #333;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  margin: 0 auto 40px auto;
+  gap: 20px;
+}
+
+.btn-salvar {
+  width: 120px;
+  align-self: center;
+}
+
+.titulo-lista {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.lista {
+  border: 2px solid #333;
+  width: 700px;
+  margin: 0 auto;
+}
+
+.linha {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 25px;
+  border-bottom: 1px solid #000;
+  align-items: center;
+  font-size: 18px;
+}
+
+.linha:last-child {
+  border-bottom: none;
+}
+
+.acoes button {
+  margin-left: 10px;
+}
