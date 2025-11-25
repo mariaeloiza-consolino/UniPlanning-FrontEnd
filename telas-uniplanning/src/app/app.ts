@@ -8,6 +8,4 @@ import { Component, signal } from '@angular/core';
 })
 export class App {
   protected readonly title = signal('telas-uniplanning');
-
-  img1 = "./assets/imagens/telas-uniplanning/src/assets/imagens/Screenshot-removebg-preview.png";
 }

@@ -17,7 +17,7 @@
 
 img {
   width:200px;
-
+  margin-left:-30px;
 }
 
 .container {
@@ -37,3 +37,29 @@ mat-toolbar {
 .content {
   padding: 16px;
 }
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  background-color: #f0f0f0;
+  font-family: Arial, sans-serif;
+}
+
+.mensagem {
+  text-align: center;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #666;
+  margin: 0;
+}
+
+
+
