@@ -26,9 +26,15 @@
   gap: 20px;
 }
 
+.mat-form-field {
+  width: 100%;
+}
+
+/* botão salvar */
 .btn-salvar {
   width: 120px;
   align-self: center;
+  margin-top: 10px;
 }
 
 .titulo-lista {
@@ -41,6 +47,8 @@
   border: 2px solid #333;
   width: 700px;
   margin: 0 auto;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .linha {
@@ -50,6 +58,12 @@
   border-bottom: 1px solid #000;
   align-items: center;
   font-size: 18px;
+  background-color: #f9f9f9;
+  transition: background-color 0.2s;
+}
+
+.linha:hover {
+  background-color: #e9f0ff;
 }
 
 .linha:last-child {

@@ -13,12 +13,12 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    CadastrarMateria
   ],
   imports: [
     CommonModule,
     MateriaRoutingModule,
     MatFormFieldModule,
+    CadastrarMateria,
     MatInputModule,
     MatButtonModule,
     MatTableModule,

@@ -7,66 +7,49 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Nome da matéria</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="novaMateria.nome" placeholder="Ex: Matemática">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>ID da matéria</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="novaMateria.id" placeholder="Ex: MAT01">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Professor</mat-label>
-      <mat-select>
-        <mat-option></mat-option>
-        <mat-option></mat-option>
-        <mat-option></mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-select [(ngModel)]="novaMateria.professorId">
+      <mat-option *ngFor="let professor of professores" [value]="professor.id">
+      {{ professor.nome }}
+    </mat-option>
+    </mat-select>
+  </mat-form-field>
 
-    <button mat-raised-button color="primary" class="btn-salvar">
+
+    <button mat-raised-button color="primary" class="btn-salvar" (click)="salvarMateria()">
       SALVAR
     </button>
   </div>
 
-  <h3 class="titulo-lista">DISCIPLINAS</h3>
+  <h3 class="titulo-lista">DISCIPLINAS CADASTRADAS</h3>
 
-  <div class="lista">
+  <div class="lista" *ngIf="materias.length > 0; else semMaterias">
 
-    <div class="linha">
-      <span></span>
+    <div class="linha" *ngFor="let materia of materias; let i = index">
+      <span>
+        <strong>{{ materia.nome }}</strong> — 
+        ID: {{ materia.id }} —
+        Professor: {{ materia.professorNome }}
+      </span>
       <div class="acoes">
-        <button mat-stroked-button color="primary">EDITAR</button>
-        <button mat-stroked-button color="warn">EXCLUIR</button>
+        <button mat-stroked-button color="primary" (click)="editarMateria(materia)">EDITAR</button>
+        <button mat-stroked-button color="warn" (click)="excluirMateria(i)">EXCLUIR</button>
       </div>
     </div>
 
-    <div class="linha">
-      <span></span>
-      <div class="acoes">
-        <button mat-stroked-button color="primary">EDITAR</button>
-        <button mat-stroked-button color="warn">EXCLUIR</button>
-      </div>
-    </div>
-
-    <div class="linha">
-      <span></span>
-      <div class="acoes">
-        <button mat-stroked-button color="primary">EDITAR</button>
-        <button mat-stroked-button color="warn">EXCLUIR</button>
-      </div>
-    </div>
-
-    <div class="linha">
-      <span></span>
-      <div class="acoes">
-        <button mat-stroked-button color="primary">EDITAR</button>
-        <button mat-stroked-button color="warn">EXCLUIR</button>
-      </div>
-    </div>
   </div>
+
+  <ng-template #semMaterias>
+    <p class="sem-itens">Nenhuma matéria cadastrada ainda.</p>
+  </ng-template>
+
 </div>
-
-
-
-

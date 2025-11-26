@@ -7,67 +7,46 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Nome</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="novoProfessor.nome" placeholder="Ex: Otávio Almeida">
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>CPF</mat-label>
-      <input matInput>
+      <input matInput [(ngModel)]="novoProfessor.cpf" placeholder="Ex: 123.456.789-00">
     </mat-form-field>
 
-      <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline">
       <mat-label>Data de Nascimento</mat-label>
-      <input matInput>
+      <input matInput type="date" [(ngModel)]="novoProfessor.dataNascimento">
     </mat-form-field>
 
-      <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput>
+      <input matInput type="email" [(ngModel)]="novoProfessor.email" placeholder="exemplo@email.com">
     </mat-form-field>
 
-    <button mat-raised-button color="primary" class="btn-salvar">
-      SALVAR
+    <button mat-raised-button color="primary" class="btn-salvar" (click)="salvarProfessor()">
+      {{ editando ? 'ATUALIZAR' : 'SALVAR' }}
+    </button>
+
+    <button *ngIf="editando" mat-button color="warn" (click)="cancelarEdicao()">
+      CANCELAR
     </button>
   </div>
 
   <h3 class="titulo-lista">PROFESSORES</h3>
 
-  <div class="lista">
-
-    <div class="linha">
-      <span></span>
+  <div class="lista" *ngIf="professores.length > 0; else semProfessores">
+    <div class="linha" *ngFor="let p of professores">
+      <span>{{ p.nome }} — {{ p.email }}</span>
       <div class="acoes">
-        <button mat-stroked-button color="primary">EDITAR</button>
-        <button mat-stroked-button color="warn">EXCLUIR</button>
-      </div>
-    </div>
-
-    <div class="linha">
-      <span></span>
-      <div class="acoes">
-        <button mat-stroked-button color="primary">EDITAR</button>
-        <button mat-stroked-button color="warn">EXCLUIR</button>
-      </div>
-    </div>
-
-    <div class="linha">
-      <span></span>
-      <div class="acoes">
-        <button mat-stroked-button color="primary">EDITAR</button>
-        <button mat-stroked-button color="warn">EXCLUIR</button>
-      </div>
-    </div>
-
-    <div class="linha">
-      <span></span>
-      <div class="acoes">
-        <button mat-stroked-button color="primary">EDITAR</button>
-        <button mat-stroked-button color="warn">EXCLUIR</button>
+        <button mat-stroked-button color="primary" (click)="editarProfessor(p)">EDITAR</button>
+        <button mat-stroked-button color="warn" (click)="excluirProfessor(p.id!)">EXCLUIR</button>
       </div>
     </div>
   </div>
+
+  <ng-template #semProfessores>
+    <p class="subtitulo">Nenhum professor cadastrado.</p>
+  </ng-template>
 </div>
-
-
-
-

@@ -59,3 +59,8 @@
 .acoes button {
   margin-left: 10px;
 }
+
+.sem-itens {
+  color: #666;
+  font-style: italic;
+}
