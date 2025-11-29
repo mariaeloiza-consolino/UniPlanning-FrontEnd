@@ -41,7 +41,6 @@ export class CadastrarMateria implements OnInit {
   constructor(private professorService: ProfessorService) {}
 
   ngOnInit(): void {
-    // carrega professores direto do localStorage
     this.professores = this.professorService.getProfessores();
   }
 
