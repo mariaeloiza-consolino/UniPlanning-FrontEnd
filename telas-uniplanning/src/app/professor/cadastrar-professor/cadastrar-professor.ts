@@ -5,8 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { ProfessorService } from '../../service/professor.service';
-import { Professor } from '../../models/professor.model';
+import { ProfessorService, Professor } from '../../service/professor.service';
 
 @Component({
   selector: 'app-cadastrar-professor',
@@ -25,55 +24,48 @@ import { Professor } from '../../models/professor.model';
 export class CadastrarProfessor implements OnInit {
 
   professores: Professor[] = [];
-  novoProfessor: Professor = { nome: '', cpf: '', dataNascimento: '', email: '' };
+  novoProfessor: Professor = {
+    id: 0,
+    nome: '',
+    cpf: '',
+    dataNascimento: '',
+    email: ''
+  };
   editando = false;
-  professorSelecionado: Professor | null = null;
+  indiceSelecionado: number | null = null;
 
   constructor(private professorService: ProfessorService) {}
 
   ngOnInit(): void {
-    this.listarProfessores();
-  }
-
-  listarProfessores() {
-    this.professorService.getProfessores().subscribe((data: Professor[]) => {
-      this.professores = data;
-    });
+    this.professores = this.professorService.getProfessores();
   }
 
   salvarProfessor() {
-    if (this.editando && this.professorSelecionado?.id) {
-      this.professorService
-        .updateProfessor(this.professorSelecionado.id, this.novoProfessor)
-        .subscribe(() => {
-          this.cancelarEdicao();
-          this.listarProfessores();
-        });
+    if (this.editando && this.indiceSelecionado !== null) {
+      this.professorService.updateProfessor(this.indiceSelecionado, this.novoProfessor);
     } else {
-      this.professorService
-        .createProfessor(this.novoProfessor)
-        .subscribe(() => {
-          this.novoProfessor = { nome: '', cpf: '', dataNascimento: '', email: '' };
-          this.listarProfessores();
-        });
+      this.novoProfessor.id = this.professores.length + 1;
+      this.professorService.addProfessor({ ...this.novoProfessor });
     }
+
+    this.professores = this.professorService.getProfessores();
+    this.cancelarEdicao();
   }
 
-  editarProfessor(professor: Professor) {
-    this.novoProfessor = { ...professor };
-    this.professorSelecionado = professor;
+  editarProfessor(index: number) {
+    this.indiceSelecionado = index;
+    this.novoProfessor = { ...this.professores[index] };
     this.editando = true;
   }
 
-  excluirProfessor(id: number) {
-    this.professorService.deleteProfessor(id).subscribe(() => {
-      this.listarProfessores();
-    });
+  excluirProfessor(index: number) {
+    this.professorService.deleteProfessor(index);
+    this.professores = this.professorService.getProfessores();
   }
 
   cancelarEdicao() {
     this.editando = false;
-    this.novoProfessor = { nome: '', cpf: '', dataNascimento: '', email: '' };
-    this.professorSelecionado = null;
+    this.indiceSelecionado = null;
+    this.novoProfessor = { id: 0, nome: '', cpf: '', dataNascimento: '', email: '' };
   }
 }

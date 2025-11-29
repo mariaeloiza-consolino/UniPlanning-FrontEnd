@@ -1,33 +1,42 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
+export interface Professor {
+  id: number;
+  nome: string;
+  cpf: string;
+  dataNascimento: string;
+  email: string;
+}
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'any' // 👈 importante: garante reuso entre módulos lazy
 })
 export class ProfessorService {
+  private static instance: ProfessorService;
+  private professores: Professor[] = [];
 
-  private apiUrl = 'http://localhost:8080/professores';
-
-  constructor(private http: HttpClient) {}
-
-  getProfessores(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+  constructor() {
+    if (ProfessorService.instance) {
+      return ProfessorService.instance;
+    }
+    ProfessorService.instance = this;
+    console.log('✅ Instância única do ProfessorService criada');
   }
 
-  getProfessorById(id: number): Observable<any> {
-    return this.http.get<any>(`${this.apiUrl}/${id}`);
+  getProfessores(): Professor[] {
+    return this.professores;
   }
 
-  createProfessor(professor: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, professor);
+  addProfessor(professor: Professor): void {
+    this.professores.push(professor);
+    console.log('📚 Lista atualizada:', this.professores);
   }
 
-  updateProfessor(id: number, professor: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, professor);
+  deleteProfessor(index: number): void {
+    this.professores.splice(index, 1);
   }
 
-  deleteProfessor(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+  updateProfessor(index: number, professor: Professor): void {
+    this.professores[index] = professor;
   }
 }

@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { SharedModule } from './shared/shared.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     HttpClientModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    SharedModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),

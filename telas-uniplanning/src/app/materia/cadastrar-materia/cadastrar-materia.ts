@@ -7,8 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
-import { ProfessorService } from '../../service/professor.service';
-import { Professor } from '../../models/professor.model';
+import { ProfessorService, Professor } from '../../service/professor.service';
 
 interface Materia {
   id: string;
@@ -47,16 +46,7 @@ export class CadastrarMateria implements OnInit {
   constructor(private professorService: ProfessorService) {}
 
   ngOnInit(): void {
-    this.carregarProfessores();
-  }
-
-  carregarProfessores() {
-    this.professorService.getProfessores().subscribe({
-      next: (data) => {
-        this.professores = data;
-      },
-      error: (err) => console.error('Erro ao carregar professores:', err)
-    });
+    this.professores = this.professorService.getProfessores();
   }
 
   salvarMateria() {
@@ -68,7 +58,6 @@ export class CadastrarMateria implements OnInit {
     };
 
     this.materias.push(nova);
-
     this.novaMateria = { id: '', nome: '', professorId: 0 };
   }
 
@@ -76,7 +65,7 @@ export class CadastrarMateria implements OnInit {
     this.materias.splice(index, 1);
   }
 
-  editarMateria(materia: Materia) {
+    editarMateria(materia: Materia) {
     this.novaMateria = { ...materia };
     this.excluirMateria(this.materias.indexOf(materia));
   }
