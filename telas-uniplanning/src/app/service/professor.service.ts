@@ -9,34 +9,36 @@ export interface Professor {
 }
 
 @Injectable({
-  providedIn: 'any' // 👈 importante: garante reuso entre módulos lazy
+  providedIn: 'root'
 })
 export class ProfessorService {
-  private static instance: ProfessorService;
-  private professores: Professor[] = [];
 
-  constructor() {
-    if (ProfessorService.instance) {
-      return ProfessorService.instance;
-    }
-    ProfessorService.instance = this;
-    console.log('✅ Instância única do ProfessorService criada');
-  }
+  private key = 'professores';
 
   getProfessores(): Professor[] {
-    return this.professores;
+    const data = localStorage.getItem(this.key);
+    return data ? JSON.parse(data) : [];
   }
 
   addProfessor(professor: Professor): void {
-    this.professores.push(professor);
-    console.log('📚 Lista atualizada:', this.professores);
-  }
-
-  deleteProfessor(index: number): void {
-    this.professores.splice(index, 1);
+    const professores = this.getProfessores();
+    professores.push(professor);
+    localStorage.setItem(this.key, JSON.stringify(professores));
   }
 
   updateProfessor(index: number, professor: Professor): void {
-    this.professores[index] = professor;
+    const professores = this.getProfessores();
+    professores[index] = professor;
+    localStorage.setItem(this.key, JSON.stringify(professores));
+  }
+
+  deleteProfessor(index: number): void {
+    const professores = this.getProfessores();
+    professores.splice(index, 1);
+    localStorage.setItem(this.key, JSON.stringify(professores));
+  }
+
+  clearAll(): void {
+    localStorage.removeItem(this.key);
   }
 }

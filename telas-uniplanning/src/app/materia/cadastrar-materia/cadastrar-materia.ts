@@ -36,36 +36,30 @@ export class CadastrarMateria implements OnInit {
 
   professores: Professor[] = [];
   materias: Materia[] = [];
-
-  novaMateria: Materia = {
-    id: '',
-    nome: '',
-    professorId: 0
-  };
+  novaMateria: Materia = { id: '', nome: '', professorId: 0 };
 
   constructor(private professorService: ProfessorService) {}
 
   ngOnInit(): void {
+    // carrega professores direto do localStorage
     this.professores = this.professorService.getProfessores();
   }
 
-  salvarMateria() {
+  salvarMateria(): void {
     const professor = this.professores.find(p => p.id === this.novaMateria.professorId);
-
     const nova = {
       ...this.novaMateria,
       professorNome: professor ? professor.nome : 'Sem professor'
     };
-
     this.materias.push(nova);
     this.novaMateria = { id: '', nome: '', professorId: 0 };
   }
 
-  excluirMateria(index: number) {
+  excluirMateria(index: number): void {
     this.materias.splice(index, 1);
   }
 
-    editarMateria(materia: Materia) {
+  editarMateria(materia: Materia): void {
     this.novaMateria = { ...materia };
     this.excluirMateria(this.materias.indexOf(materia));
   }

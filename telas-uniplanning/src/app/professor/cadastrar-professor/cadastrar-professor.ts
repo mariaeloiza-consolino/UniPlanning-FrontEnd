@@ -10,27 +10,14 @@ import { ProfessorService, Professor } from '../../service/professor.service';
 @Component({
   selector: 'app-cadastrar-professor',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule
-  ],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule],
   templateUrl: './cadastrar-professor.html',
   styleUrls: ['./cadastrar-professor.css']
 })
 export class CadastrarProfessor implements OnInit {
 
   professores: Professor[] = [];
-  novoProfessor: Professor = {
-    id: 0,
-    nome: '',
-    cpf: '',
-    dataNascimento: '',
-    email: ''
-  };
+  novoProfessor: Professor = { id: 0, nome: '', cpf: '', dataNascimento: '', email: '' };
   editando = false;
   indiceSelecionado: number | null = null;
 
@@ -40,9 +27,9 @@ export class CadastrarProfessor implements OnInit {
     this.professores = this.professorService.getProfessores();
   }
 
-  salvarProfessor() {
+  salvarProfessor(): void {
     if (this.editando && this.indiceSelecionado !== null) {
-      this.professorService.updateProfessor(this.indiceSelecionado, this.novoProfessor);
+      this.professorService.updateProfessor(this.indiceSelecionado, { ...this.novoProfessor });
     } else {
       this.novoProfessor.id = this.professores.length + 1;
       this.professorService.addProfessor({ ...this.novoProfessor });
@@ -52,18 +39,18 @@ export class CadastrarProfessor implements OnInit {
     this.cancelarEdicao();
   }
 
-  editarProfessor(index: number) {
+  editarProfessor(index: number): void {
     this.indiceSelecionado = index;
     this.novoProfessor = { ...this.professores[index] };
     this.editando = true;
   }
 
-  excluirProfessor(index: number) {
+  excluirProfessor(index: number): void {
     this.professorService.deleteProfessor(index);
     this.professores = this.professorService.getProfessores();
   }
 
-  cancelarEdicao() {
+  cancelarEdicao(): void {
     this.editando = false;
     this.indiceSelecionado = null;
     this.novoProfessor = { id: 0, nome: '', cpf: '', dataNascimento: '', email: '' };

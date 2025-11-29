@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { SharedModule } from './shared/shared.module';
-
+import { ProfessorService } from './service/professor.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +34,8 @@ import { SharedModule } from './shared/shared.module';
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZonelessChangeDetection()
+    provideZonelessChangeDetection(),
+    ProfessorService
   ],
   bootstrap: [App]
 })
